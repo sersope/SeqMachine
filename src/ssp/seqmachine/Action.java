@@ -47,6 +47,10 @@ public class Action {
     public void execute() {
         signal.setValue(setpoint);
     }
+    
+    public boolean isTrue() {
+        return (signal.getValue() == setpoint);
+    }
 
     @Override
     public String toString() {
