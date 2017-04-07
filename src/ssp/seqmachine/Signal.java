@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 sergio.
+ * Copyright 2017 Sergio Soriano Peiró
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ package ssp.seqmachine;
  * Implementa una señal (de entrada, salida o interna) de valor int.
  * Tiene un identificador y una descripción.
  * Para señal digital usar como valores Signal.ON o Signal.OFF.
- * @author sergio
+ * @author Sergio Soriano Peiró
  */
 public class Signal {
 

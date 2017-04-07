@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 sergio.
+ * Copyright 2017 Sergio Soriano Peiró.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,17 +26,23 @@ package ssp.seqmachine;
 import java.util.*;
 
 /**
- *
- * @author sergio
+ * Implementa una etapa de la lista
+ * TODO Desarrollar y explicar un poco 
+ * @author Sergio Soriano Peiró
  */
 public class Stage {
     private final String id;
     private final String description;
     private long initTime;
     private long duration;
-    private final ArrayList<Action> actions;
+    private final ArrayList<SignalSetpoint> actions;
     private final ArrayList<Transition> transitions;
     
+    /**
+     *
+     * @param i ID de la etapa
+     * @param d Descripción de la etapa
+     */
     public Stage(String i, String d) {
         id = i;
         description = d;
@@ -45,30 +51,59 @@ public class Stage {
         duration = 0L;
     }
     
+    /**
+     *
+     * @return Devuele el ID
+     */
     public String getId() {
         return id;
     }
+
+    /**
+     *
+     * @return Devuelve la descripción
+     */
     public String getDescription() {
         return description;
     }
     
-    // d in miliseconds
+    /**
+     * Cambia la duración de la etapa
+     * @param d Duración en miliseconds
+     */
     public void setDuration(long d) {
         duration = d * 1000000L; //Convert to nanoseconds
     }
     
+    /**
+     * Señala el comienzo de la etapa.
+     */
     public void resetTime() {
         initTime = System.nanoTime();
     }
     
-    public long updateTime() {
+    /**
+     * Actualiza el tiempo transcurrido de la etapa, desde que se inició.
+     * @return Tiempo en nanosegundos transcurridos desde el inicio de la etapa.
+     */
+    public long uptime() {
         return (System.nanoTime() - initTime);
     }
     
-    public boolean addAction(Action a) {
+    /**
+     * Añade una acción a la etapa.
+     * @param a Objeto SignalSetpoint como acción.
+     * @return true si la acción se ha añadido correctamente.
+     */
+    public boolean addAction(SignalSetpoint a) {
         return actions.add(a);
     }
     
+    /**
+     * Añade una transición a la etapa.
+     * @param t Objeto Transition añadido.
+     * @return true si la transición se ha añadido correctamente.
+     */
     public boolean addTransition(Transition t) {
         return transitions.add(t);
     }

@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 sergio.
+ * Copyright 2017 Sergio Soriano Peiró.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,8 @@
 package ssp.seqmachine;
 
 /**
- *
- * @author sergio
+ * Implementa la transición de la etapa y la siguiente si se cumplen las condiciones
+ * @author Sergio Soriano Peiró
  */
 public class Transition {
     private Stage finalStage;

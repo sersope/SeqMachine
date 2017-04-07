@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 sergio.
+ * Copyright 2017 Sergio Soriano Peiró.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,34 +24,61 @@
 package ssp.seqmachine;
 
 /**
- *
- * @author sergio
+ * La clase asocia una señal a un setpoint.
+ * Usado como condición compara el valor de la señal con el setpoint.
+ * Usado como acción (de etapa) actualiza el valor de la señal al setpoint.
+ * @author Sergio Soriano Peiró
  * 
  */
-public class Action {
+public class SignalSetpoint {
     private final String id;
     private final String description;
     private final Signal signal;
     private int setpoint;
     
-    public Action(String i, String d, Signal s, int sp) {
+    /**
+     * Constructor
+     * @param i String identificador
+     * @param d Descripción
+     * @param s Señal
+     * @param sp Valor de setpoint
+     */
+    public SignalSetpoint(String i, String d, Signal s, int sp) {
         id = i;
         description = d;
         signal = s;
         setpoint = sp;
     }
     
-    public void setPoint(int sp) {
+    /**
+     * Actualiza el valor de setpoint
+     * @param sp nuevo valor de setpoint
+     */
+    public void setSetpoint(int sp) {
         setpoint = sp;
     }
-    public void execute() {
+
+    /**
+     * Usado como acción en una etapa.
+     * Cambia el valor de la señal al setpoint.
+     */
+    public void apply() {
         signal.setValue(setpoint);
     }
     
-    public boolean isTrue() {
+    /**
+     * Usado como condición en una transición.
+     * Devuelve true si el valor de la señal coincide con el setpoint.
+     * @return true si el valor de la señal coincide con el setpoint
+     */
+    public boolean compare() {
         return (signal.getValue() == setpoint);
     }
 
+    /**
+     *
+     * @return "id (descripción) sp = setpoint"
+     */
     @Override
     public String toString() {
         return id + " (" + description + ") " + "sp = " + setpoint;
