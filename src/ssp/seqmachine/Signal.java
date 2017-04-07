@@ -24,40 +24,75 @@
 package ssp.seqmachine;
 
 /**
- *
+ * Implementa una señal (de entrada, salida o interna) de valor int.
+ * Tiene un identificador y una descripción.
+ * Para señal digital usar como valores Signal.ON o Signal.OFF.
  * @author sergio
  */
 public class Signal {
 
+    /**
+     * Miembro estático que representa el valor ON de una señal digital.
+     */
     public static final int ON = 1;
+
+    /** Miembro estático que representa el valor OFF de una señal digital
+     *
+     */
     public static final int OFF = 0;
 
     private final String id;
     private final String description;
     private int value;
 
+    /**
+     * 
+     * @param i Identificador de la señal
+     * @param d Breve descripción
+     * @param v Valor inicial
+     */
     public Signal(String i, String d, int v) {
         id = i;
         description = d;
         value = v;
     }
 
+    /**
+     * Obtener el identificador de la señal
+     * @return identificador
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Obtener la descripción
+     * @return descripción
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Cambiar el valor de la señal
+     * @param v valor
+     */
     public void setValue(int v) {
         value = v;
     }
 
+    /**
+     * Obtener el valor de la señal
+     * @return valor
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * Override toString method
+     * @return "id (descripción) value= valor" 
+     */
     @Override
     public String toString() {
         return id + " (" + description + ") value= " + value;
