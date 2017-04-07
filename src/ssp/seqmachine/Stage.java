@@ -112,5 +112,7 @@ public class Stage {
         processActions
         )
     */
-    
+    public String toString() {
+        return id + " (" + description + ")";
+    }
 }
