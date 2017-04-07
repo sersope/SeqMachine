@@ -1,0 +1,2 @@
+# SeqMachine
+Maquina secuencial
