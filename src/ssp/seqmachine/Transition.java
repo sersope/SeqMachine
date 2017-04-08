@@ -23,12 +23,43 @@
  */
 package ssp.seqmachine;
 
+import java.util.*;
+
 /**
- * Implementa la transición de la etapa y la siguiente si se cumplen las condiciones
+ * Implementa la transición de la etapa a la siguiente si se cumplen las condiciones
  * @author Sergio Soriano Peiró
  */
 public class Transition {
-    private Stage finalStage;
-    private Object conditions; // Condiciones a cumplirse TODO elaborar y determinar como implementar
+    private final State finalState;
+    private final ArrayList<SignalSetpoint> conditions;
+    
+    /**
+     * Constructor
+     * @param fs etapa final
+     */
+    public Transition(State fs) {
+        finalState = fs;
+        conditions = new ArrayList<>();
+    }
+    
+    /**
+     * Añade condicion a la lista de condiciones
+     * @param c condiciona a añadir
+     * @return true si la condición se ha añadido satisfactoriamente.
+     */
+    public boolean addCondition(SignalSetpoint c) {
+        return conditions.add(c);
+    }
+    
+    /**
+     * Comprueba que todas las condiciones se cumplen
+     * @return true si todas las condiciones se cumplen.
+     */
+    public boolean isSuperable() {
+        for (SignalSetpoint c : conditions)
+            if (!c.isTrue())
+                return false;
+        return true;
+    }
     
 }

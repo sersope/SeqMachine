@@ -71,7 +71,7 @@ public class SignalSetpoint {
      * Devuelve true si el valor de la señal coincide con el setpoint.
      * @return true si el valor de la señal coincide con el setpoint
      */
-    public boolean compare() {
+    public boolean isTrue() {
         return (signal.getValue() == setpoint);
     }
 

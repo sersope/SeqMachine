@@ -30,7 +30,7 @@ import java.util.*;
  * TODO Desarrollar y explicar un poco 
  * @author Sergio Soriano Peiró
  */
-public class Stage {
+public class State {
     private final String id;
     private final String description;
     private long initTime;
@@ -43,7 +43,7 @@ public class Stage {
      * @param i ID de la etapa
      * @param d Descripción de la etapa
      */
-    public Stage(String i, String d) {
+    public State(String i, String d) {
         id = i;
         description = d;
         actions = new ArrayList<>();
@@ -112,6 +112,13 @@ public class Stage {
         processActions
         )
     */
+
+    /**
+     *
+     * @return "id (description)"
+     */
+
+    @Override
     public String toString() {
         return id + " (" + description + ")";
     }

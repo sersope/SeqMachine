@@ -44,7 +44,7 @@ public class TestSeqMachine {
         System.out.println(ao0);
         System.out.println(a0);
         
-        Stage etapa0 = new Stage("E0", "Etapa inicial. Todo quieto.");
+        State etapa0 = new State("E0", "Etapa inicial. Todo quieto.");
         etapa0.setDuration(1000);
         etapa0.resetTime();
         System.out.println("\n" + etapa0.uptime());
