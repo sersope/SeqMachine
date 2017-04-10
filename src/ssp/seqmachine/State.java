@@ -35,7 +35,7 @@ public class State {
     private final String description;
     private long initTime;
     private long duration;
-    private final ArrayList<SignalSetpoint> actions;
+    private final ArrayList<Setpoint> actions;
     private final ArrayList<Transition> transitions;
     
     /**
@@ -95,7 +95,7 @@ public class State {
      * @param a Objeto SignalSetpoint como acción.
      * @return true si la acción se ha añadido correctamente.
      */
-    public boolean addAction(SignalSetpoint a) {
+    public boolean addAction(Setpoint a) {
         return actions.add(a);
     }
     

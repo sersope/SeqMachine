@@ -29,27 +29,28 @@ import ssp.seqmachine.*;
  */
 public class TestSeqMachine {
     public static void main(String[] args) {
+        // Señales
         Signal di0 = new Signal("DI0", "Entrada dig. 0", 0);
-        Signal ao0 = new Signal("AO0", "Salida analog. 0", 0);
-
-        System.out.println(di0);
-        System.out.println(ao0);
+        Signal do0 = new Signal("DO0", "Salida 0", 0);
+        // Etapas
+        State etapa0 = new State("E0", "En reposo");
+        State etapa1 = new State("E1", "Activado");
+        //Acciones
+        etapa0.addAction(new Setpoint(do0, 0));
+        etapa1.addAction(new Setpoint(do0, 1));
+        etapa1.addAction(new Setpoint(do0, 1));
+        etapa1.addAction(new Setpoint(do0, 1));
+        // Transiciones
+        Transition t = new Transition(etapa1);
+        t.addCondition(new Setpoint(di0, 1));
+        etapa0.addTransition(t);
         
-        di0.setValue(1);
-        SignalSetpoint a0 = new SignalSetpoint("A0","fijar setpoint Temperatura", ao0, 10);
-        a0.apply();
-        a0.setSetpoint(28);
-        a0.apply();
-        System.out.println(di0);
-        System.out.println(ao0);
-        System.out.println(a0);
+        t = new Transition(etapa0);
+        t.addCondition(new Setpoint(di0, 0));
+        etapa1.addTransition(t);
         
-        State etapa0 = new State("E0", "Etapa inicial. Todo quieto.");
-        etapa0.setDuration(1000);
-        etapa0.resetTime();
-        System.out.println("\n" + etapa0.uptime());
-        System.out.println();
-        System.out.println(etapa0.addAction(a0));
+        System.out.println(etapa0);
+                
     }
     
 }

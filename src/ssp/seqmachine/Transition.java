@@ -31,7 +31,7 @@ import java.util.*;
  */
 public class Transition {
     private final State finalState;
-    private final ArrayList<SignalSetpoint> conditions;
+    private final ArrayList<Setpoint> conditions;
     
     /**
      * Constructor
@@ -47,7 +47,7 @@ public class Transition {
      * @param c condiciona a añadir
      * @return true si la condición se ha añadido satisfactoriamente.
      */
-    public boolean addCondition(SignalSetpoint c) {
+    public boolean addCondition(Setpoint c) {
         return conditions.add(c);
     }
     
@@ -56,7 +56,7 @@ public class Transition {
      * @return true si todas las condiciones se cumplen.
      */
     public boolean isSuperable() {
-        for (SignalSetpoint c : conditions)
+        for (Setpoint c : conditions)
             if (!c.isTrue())
                 return false;
         return true;
