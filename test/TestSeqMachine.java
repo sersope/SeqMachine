@@ -32,21 +32,20 @@ public class TestSeqMachine {
         // Señales
         Signal di0 = new Signal("DI0", "Entrada dig. 0", 0);
         Signal do0 = new Signal("DO0", "Salida 0", 0);
+        
         // Etapas
         State etapa0 = new State("E0", "En reposo");
         State etapa1 = new State("E1", "Activado");
         //Acciones
-        etapa0.addAction(new Setpoint(do0, 0));
-        etapa1.addAction(new Setpoint(do0, 1));
-        etapa1.addAction(new Setpoint(do0, 1));
-        etapa1.addAction(new Setpoint(do0, 1));
+        etapa0.addAction(new Setpoint(do0, SignalValue.OFF));
+        etapa1.addAction(new Setpoint(do0, SignalValue.ON));
         // Transiciones
         Transition t = new Transition(etapa1);
-        t.addCondition(new Setpoint(di0, 1));
+        t.addCondition(new Setpoint(di0, SignalValue.ON));
         etapa0.addTransition(t);
         
         t = new Transition(etapa0);
-        t.addCondition(new Setpoint(di0, 0));
+        t.addCondition(new Setpoint(di0, SignalValue.OFF));
         etapa1.addTransition(t);
         
         System.out.println(etapa0);
