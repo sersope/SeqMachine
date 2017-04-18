@@ -31,16 +31,6 @@ package ssp.seqmachine;
  */
 public class Signal {
 
-    /**
-     * Miembro estático que representa el valor ON de una señal digital.
-     */
-    public static final int ON = 1;
-
-    /** Miembro estático que representa el valor OFF de una señal digital
-     *
-     */
-    public static final int OFF = 0;
-
     private final String id;
     private final String description;
     private int value;

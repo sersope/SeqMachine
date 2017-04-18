@@ -24,45 +24,37 @@
 package ssp.seqmachine;
 
 /**
- * La clase asocia una señal a un setpoint.
- * Usado como condición compara el valor de la señal con el setpoint.
- * Usado como acción (de etapa) actualiza el valor de la señal al setpoint.
+ * La clase asocia una señal a una señal setpoint.
+ * Usado como condición compara el valor de la señal con el de la setpoint.
+ * Usado como acción (de etapa) actualiza el valor de la señal al de la setpoint.
  * @author Sergio Soriano Peiró
  * 
  */
 public class Setpoint {
     private final String description;
     private final Signal signal;
-    private int setpoint;
+    private Signal setpoint;
     
     // TODO Generar la descripción de forma automática según la señal y el setpoint y si es accion o condicion
     //      Olvidarse del identificador
     
     /**
      * Constructor
-     * @param s Señal
-     * @param sp Valor de setpoint
+     * @param signal Señal
+     * @param setpoint  Signal setpoint
      */
-    public Setpoint(Signal signal, int setpoint) {
+    public Setpoint(Signal signal, Signal setpoint) {
         description = "Setpoint of " + signal.getId() + " = " + setpoint;
         this.signal = signal;
         this.setpoint = setpoint;
     }
     
     /**
-     * Actualiza el valor de setpoint
-     * @param sp nuevo valor de setpoint
-     */
-    public void setSetpoint(int sp) {
-        setpoint = sp;
-    }
-
-    /**
      * Usado como acción en una etapa.
-     * Cambia el valor de la señal al setpoint.
+     * Cambia el valor de la señal al de la señal de setpoint.
      */
     public void apply() {
-        signal.setValue(setpoint);
+        signal.setValue(setpoint.getValue());
     }
     
     /**
@@ -71,12 +63,12 @@ public class Setpoint {
      * @return true si el valor de la señal coincide con el setpoint
      */
     public boolean isTrue() {
-        return (signal.getValue() == setpoint);
+        return (signal.getValue() == setpoint.getValue());
     }
 
     /**
      *
-     * @return "id (descripción) sp = setpoint"
+     * @return "id - descripción"
      */
     @Override
     public String toString() {
