@@ -30,25 +30,27 @@ import ssp.seqmachine.*;
 public class TestSeqMachine {
     public static void main(String[] args) {
         // Señales
-        Signal di0 = new Signal("DI0", "Entrada dig. 0", 0);
-        Signal do0 = new Signal("DO0", "Salida 0", 0);
+        Signal di0 = new Signal("DI0", "Interruptor de pared", 0);
+        Signal do0 = new Signal("DO0", "Luz del pasillo", 0);
         
         // Etapas
-        State etapa0 = new State("E0", "En reposo");
-        State etapa1 = new State("E1", "Activado");
+        State etapa0 = new State("E0", "Luz apagada");
+        State etapa1 = new State("E1", "Luz encendida");
         //Acciones
-        etapa0.addAction(new Setpoint(do0, SignalValue.OFF));
-        etapa1.addAction(new Setpoint(do0, SignalValue.ON));
+        etapa0.addAction(new Action(do0, SignalValue.OFF));
+        etapa1.addAction(new Action(do0, SignalValue.ON));
         // Transiciones
         Transition t = new Transition(etapa1);
-        t.addCondition(new Setpoint(di0, SignalValue.ON));
+        t.addCondition(new Condition(di0, SignalValue.ON));
         etapa0.addTransition(t);
         
         t = new Transition(etapa0);
-        t.addCondition(new Setpoint(di0, SignalValue.OFF));
+        t.addCondition(new Condition(di0, SignalValue.OFF));
         etapa1.addTransition(t);
         
         System.out.println(etapa0);
+                
+        System.out.println(do0);
                 
     }
     

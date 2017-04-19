@@ -30,10 +30,10 @@ package ssp.seqmachine;
  * @author Sergio Soriano Peiró
  * 
  */
-public class Setpoint {
+public class Action {
     private final String description;
     private final Signal signal;
-    private Signal setpoint;
+    private final Signal setpoint;
     
     // TODO Generar la descripción de forma automática según la señal y el setpoint y si es accion o condicion
     //      Olvidarse del identificador
@@ -43,8 +43,8 @@ public class Setpoint {
      * @param signal Señal
      * @param setpoint  Signal setpoint
      */
-    public Setpoint(Signal signal, Signal setpoint) {
-        description = "Setpoint of " + signal.getId() + " = " + setpoint;
+    public Action(Signal signal, Signal setpoint) {
+        description = "Setpoint of " + signal.getId() + " = " + setpoint.getId();
         this.signal = signal;
         this.setpoint = setpoint;
     }

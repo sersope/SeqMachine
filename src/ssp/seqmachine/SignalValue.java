@@ -24,10 +24,10 @@
 package ssp.seqmachine;
 
 /**
- *
+ * Contenedor de señales de valor constante
  * @author sergio
  */
-public class SignalValue {
+public abstract class SignalValue {
 
     /**
      * Señal digital ON
