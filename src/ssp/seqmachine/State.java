@@ -108,18 +108,25 @@ public class State {
         return transitions.add(t);
     }
     
-    /*TODO
+    /*TODO Procesar las acciones
         processActions
         )
     */
 
     /**
-     *
-     * @return "id (description)"
+     * Override toString method
+     * @return "State: " + id + " (" + description + ")"
      */
-
     @Override
     public String toString() {
-        return id + " (" + description + ")";
+        return "State: " + id + " (" + description + ")";
+    }
+    
+    public String transitionsToString() {
+        String s = "";
+        for (Transition t : transitions) {
+            s += this.getId() + " -> " + t.getFinalState().getId() + "\n";
+        }
+        return s;
     }
 }

@@ -35,16 +35,13 @@ public class Action {
     private final Signal signal;
     private final Signal setpoint;
     
-    // TODO Generar la descripción de forma automática según la señal y el setpoint y si es accion o condicion
-    //      Olvidarse del identificador
-    
     /**
      * Constructor
      * @param signal Señal
      * @param setpoint  Signal setpoint
      */
     public Action(Signal signal, Signal setpoint) {
-        description = "Setpoint of " + signal.getId() + " = " + setpoint.getId();
+        description = signal.getId() + " (" + signal.getDescription() + ") = " + setpoint.getId();
         this.signal = signal;
         this.setpoint = setpoint;
     }
@@ -67,12 +64,12 @@ public class Action {
     }
 
     /**
-     *
+     * Override toString method
      * @return "id - descripción"
      */
     @Override
     public String toString() {
-        return description;
+        return "Action: " + description;
     }
     
 }

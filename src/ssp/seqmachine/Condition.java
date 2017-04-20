@@ -44,7 +44,7 @@ public class Condition {
      * @param setpoint  Signal setpoint
      */
     public Condition(Signal signal, Signal setpoint) {
-        description = "Setpoint of " + signal.getId() + " = " + setpoint.getId();
+        description = "If " + signal.getId() + " == " + setpoint.getId();
         this.signal = signal;
         this.setpoint = setpoint;
     }
@@ -67,12 +67,12 @@ public class Condition {
     }
 
     /**
-     *
-     * @return "id - descripción"
+     * Override toString method
+     * @return "Condition: " + description;
      */
     @Override
     public String toString() {
-        return description;
+        return "Condition: " + description;
     }
     
 }

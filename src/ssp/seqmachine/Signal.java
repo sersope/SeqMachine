@@ -81,10 +81,10 @@ public class Signal {
 
     /**
      * Override toString method
-     * @return "id (descripción) value= valor" 
+     * @return "Signal: " + id + " (" + description + ") value= " + value
      */
     @Override
     public String toString() {
-        return id + " (" + description + ") value= " + value;
+        return "Signal: " + id + " (" + description + ") value= " + value;
     }
 }

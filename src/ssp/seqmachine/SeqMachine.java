@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2017 Sergio Soriano Peiró.
+ * Copyright 2017 sergio.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,53 +26,47 @@ package ssp.seqmachine;
 import java.util.*;
 
 /**
- * Implementa la transición de la etapa a la siguiente si se cumplen las condiciones
- * @author Sergio Soriano Peiró
+ *
+ * @author sergio
  */
-public class Transition {
-    private final State finalState;
-    private final ArrayList<Condition> conditions;
+public class SeqMachine {
+    private final ArrayList<State> estados;
+    private final ArrayList<Signal> senyales;
+    private State initState;
+    private State actualState;
     
     /**
-     * Constructor
-     * @param fs etapa final
+     *
      */
-    public Transition(State fs) {
-        finalState = fs;
-        conditions = new ArrayList<>();
-    }
-    
-    public State getFinalState() {
-        return finalState;
+    public SeqMachine() {
+        estados = new ArrayList<>();
+        senyales = new ArrayList<>();
     }
     
     /**
-     * Añade condicion a la lista de condiciones
-     * @param c condiciona a añadir
-     * @return true si la condición se ha añadido satisfactoriamente.
+     *
+     * @param s
+     * @return
      */
-    public boolean addCondition(Condition c) {
-        return conditions.add(c);
+    public boolean addSignal(Signal s) {
+        return senyales.add(s);
     }
     
     /**
-     * Comprueba que todas las condiciones se cumplen
-     * @return true si todas las condiciones se cumplen.
+     *
+     * @param e
+     * @return
      */
-    public boolean isSuperable() {
-        for (Condition c : conditions)
-            if (!c.isTrue())
-                return false;
-        return true;
+    public boolean addState(State e) {
+        return estados.add(e);
     }
     
     /**
-     * Override toString method
-     * @return "id (descripción) value= valor" 
+     *
+     * @param e
      */
-    @Override
-    public String toString() {
-        return " -> " + finalState;
+    public void setInitState(State e) {
+        initState = e;
     }
     
 }
