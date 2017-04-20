@@ -30,7 +30,7 @@ import ssp.seqmachine.*;
 public class TestSeqMachine {
     public static void main(String[] args) {
         
-        SeqMachine maquina = new SeqMachine();
+        SeqMachine maquina = new SeqMachine("Maniobra para encender la luz");
         // Señales
         Signal di0 = new Signal("DI0", "Interruptor de pared", 0);
         System.out.println(di0);

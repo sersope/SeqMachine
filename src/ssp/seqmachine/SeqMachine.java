@@ -30,6 +30,7 @@ import java.util.*;
  * @author sergio
  */
 public class SeqMachine {
+    private final String description;
     private final ArrayList<State> estados;
     private final ArrayList<Signal> senyales;
     private State initState;
@@ -37,10 +38,20 @@ public class SeqMachine {
     
     /**
      *
+     * @param description
      */
-    public SeqMachine() {
+    public SeqMachine(String description) {
+        this.description = description;
         estados = new ArrayList<>();
         senyales = new ArrayList<>();
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public String getDescription() {
+        return description;
     }
     
     /**
