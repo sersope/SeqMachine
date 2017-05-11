@@ -72,12 +72,22 @@ public class SeqMachine {
         return estados.add(e);
     }
     
+    public ArrayList<State> getStates() {
+        return estados;
+    }
     /**
      *
      * @param e
      */
-    public void setInitState(State e) {
+    public void init(State e) {
         initState = e;
+        actualState = e;
+        actualState.doActions();
     }
     
+    public void update() {
+        // Determina el siguiente estado
+        actualState = actualState.getNext();
+        actualState.doActions();
+    }
 }

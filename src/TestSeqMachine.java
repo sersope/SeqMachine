@@ -49,7 +49,7 @@ public class TestSeqMachine {
         System.out.println(etapa1);
         maquina.addState(etapa1);
         
-//Acciones
+        //Acciones
         Action a = new Action(do0, SignalValue.OFF);
         System.out.println(a);
         etapa0.addAction(a);
@@ -72,6 +72,18 @@ public class TestSeqMachine {
         System.out.println("Transitions:");
         System.out.print(etapa0.transitionsToString());
         System.out.print(etapa1.transitionsToString());
+        
+        System.out.println();
+        System.out.println(do0);
+        maquina.init(etapa0);
+        System.out.println(do0);
+        di0.setValue(1);
+        maquina.update();
+        System.out.println(do0);
+        di0.setValue(0);
+        maquina.update();
+        System.out.println(do0);
+        
     }
     
 }

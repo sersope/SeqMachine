@@ -35,9 +35,6 @@ public class Condition {
     private final Signal signal;
     private final Signal setpoint;
     
-    // TODO Generar la descripción de forma automática según la señal y el setpoint y si es accion o condicion
-    //      Olvidarse del identificador
-    
     /**
      * Constructor
      * @param signal Señal
@@ -47,14 +44,6 @@ public class Condition {
         description = "If " + signal.getId() + " == " + setpoint.getId();
         this.signal = signal;
         this.setpoint = setpoint;
-    }
-    
-    /**
-     * Usado como acción en una etapa.
-     * Cambia el valor de la señal al de la señal de setpoint.
-     */
-    public void apply() {
-        signal.setValue(setpoint.getValue());
     }
     
     /**

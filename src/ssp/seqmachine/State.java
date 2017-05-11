@@ -108,11 +108,25 @@ public class State {
         return transitions.add(t);
     }
     
-    /*TODO Procesar las acciones
-        processActions
-        )
-    */
-
+    public ArrayList<Transition> getTransitions() {
+        return transitions;
+    }
+    
+    public void doActions() {
+        for (Action a : actions) {
+            a.apply();
+        }
+    }
+    
+    // Devuelev el estado final de la primera transicion que se supera
+    public State getNext() {
+        for (Transition t : transitions) {
+            if (t.isSuperable()) {
+                return t.getFinalState();
+            }
+        }
+        return this;
+    }
     /**
      * Override toString method
      * @return "State: " + id + " (" + description + ")"

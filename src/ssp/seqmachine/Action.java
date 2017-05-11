@@ -55,15 +55,6 @@ public class Action {
     }
     
     /**
-     * Usado como condición en una transición.
-     * Devuelve true si el valor de la señal coincide con el setpoint.
-     * @return true si el valor de la señal coincide con el setpoint
-     */
-    public boolean isTrue() {
-        return (signal.getValue() == setpoint.getValue());
-    }
-
-    /**
      * Override toString method
      * @return "id - descripción"
      */
