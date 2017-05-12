@@ -38,6 +38,8 @@ public class State {
     private final ArrayList<Action> actions;
     private final ArrayList<Transition> transitions;
     
+    private Node node;
+    
     /**
      *
      * @param i ID de la etapa
@@ -49,6 +51,14 @@ public class State {
         actions = new ArrayList<>();
         transitions = new ArrayList<>();
         duration = 0L;
+    }
+
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
     }
     
     /**
