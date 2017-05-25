@@ -31,15 +31,19 @@ import java.util.*;
  * @author Sergio Soriano Peiró
  */
 public class State {
-    private final String id;
-    private final String description;
+    private String id;
+    private String description;
     private long initTime;
     private long duration;
     private final ArrayList<Action> actions;
     private final ArrayList<Transition> transitions;
     
-    private Node node;
     
+    public State() {
+        actions = new ArrayList<>();
+        transitions = new ArrayList<>();
+        duration = 0L;
+    }
     /**
      *
      * @param i ID de la etapa
@@ -53,12 +57,12 @@ public class State {
         duration = 0L;
     }
 
-    public Node getNode() {
-        return node;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setNode(Node node) {
-        this.node = node;
+    public void setDescription(String description) {
+        this.description = description;
     }
     
     /**

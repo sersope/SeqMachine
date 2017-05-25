@@ -33,17 +33,22 @@ import java.awt.geom.Line2D;
  *
  * @author Sergio Soriano Peiró <sersope@gmail.com>
  */
-public class Edge {
-    private final Node nOrigen;
-    private final Node nDestino;
-    private final GeneralPath path = new GeneralPath();
-    private final Polygon arrow = new Polygon();
-    private final Line2D.Float linea = new Line2D.Float();
+public class TransitionIcon {
+    private final StateIcon nOrigen;
+    private final StateIcon nDestino;
+    private final transient GeneralPath path = new GeneralPath();
+    private final transient Polygon arrow = new Polygon();
+    private final transient Line2D.Float linea = new Line2D.Float();
+    private final Transition transition;
 
-    Edge(Node nOrigen, Node nDestino) {
+    public TransitionIcon(Transition transition, StateIcon nOrigen, StateIcon nDestino) {
+        this.transition = transition;
         this.nOrigen = nOrigen;
         this.nDestino = nDestino;
-        updatePath();
+    }
+
+    public Transition getTransition() {
+        return transition;
     }
 
     private void updatePath() {

@@ -21,25 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ssp.seqmachine;
+package ssp.seqmachine.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import javax.swing.JFrame;
+import java.util.ArrayList;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 import javax.swing.event.SwingPropertyChangeSupport;
+import ssp.seqmachine.*;
 
 /**
  *
@@ -48,17 +47,20 @@ import javax.swing.event.SwingPropertyChangeSupport;
 public class SeqMachineCanvas extends JPanel {
 
     private final Dimension grid;
-    private Node movedNode;
+    private StateIcon nodeToMove, selectedNode;
     private String statusText = new String();
     private SeqMachine machine;
     private final SwingPropertyChangeSupport pcs;
     private JPopupMenu popup;
+//    private final ArrayList<StateIcon> nodes;
+//    private final ArrayList<TransitionIcon> edges;
 
     public SeqMachineCanvas() {
-        this.grid = Node.getSIZE();
+        this.grid = StateIcon.getSIZE();
         initComponent();
-        pcs =  new SwingPropertyChangeSupport(this);
-
+        pcs = new SwingPropertyChangeSupport(this);
+//        nodes = new ArrayList<>();
+//        edges = new ArrayList<>();
     }
 
     public void createPopupMenu() {
@@ -66,7 +68,7 @@ public class SeqMachineCanvas extends JPanel {
         JMenuItem menuItem;
         Font mfont = new Font("Dialog", 0, 11);
         popup = new JPopupMenu("SeqMachine");
-        
+
         menuItem = new JMenuItem("Test Machine");
         menuItem.setFont(mfont);
         menuItem.addActionListener((e) -> {
@@ -79,25 +81,35 @@ public class SeqMachineCanvas extends JPanel {
         menuItem.addActionListener((e) -> {
             createMachine();
         });
-        popup.add(menuItem);        
-        
+        popup.add(menuItem);
+
         popup.addSeparator();
-        
-        menuItem = new JMenuItem("New state");
+
+        menuItem = new JMenuItem("New state...");
         menuItem.setFont(mfont);
         menuItem.addActionListener((e) -> {
-            setStatusText("Popup 1");
+            createState();
+        });
+        popup.add(menuItem);
+
+        menuItem = new JMenuItem("New link to state");
+        menuItem.setFont(mfont);
+        menuItem.addActionListener((e) -> {
+            createLink();
         });
         popup.add(menuItem);
     }
+
     public void createMachine() {
-        
+
         JDialogEditMachine dlg = new JDialogEditMachine(null, true);
         dlg.setVisible(true);
         String desc = dlg.getTextDescription();
-        if (desc != null)
+        if (desc != null) {
             setMachine(new SeqMachine(desc));
+        }
     }
+
     //PRUEBA
     public void createTestMachine() {
         SeqMachine maquina = new SeqMachine("Maniobra para encender la luz");
@@ -123,33 +135,33 @@ public class SeqMachineCanvas extends JPanel {
         System.out.println(etapa2);
         maquina.addState(etapa2);
 
-        State etapa3 = new State("E3", "Luz máxima");
-        System.out.println(etapa3);
-        maquina.addState(etapa3);
-        //Acciones
-        Action a = new Action(do0, SignalValue.OFF);
-        System.out.println(a);
-        etapa0.addAction(a);
-        a = new Action(do0, SignalValue.ON);
-        System.out.println(a);
-        etapa1.addAction(a);
-        // Transiciones
-        Transition t = new Transition(etapa1);
-        Condition c = new Condition(di0, SignalValue.ON);
-        System.out.println(c);
-        t.addCondition(c);
-        etapa0.addTransition(t);
+//        State etapa3 = new State("E3", "Luz máxima");
+//        System.out.println(etapa3);
+//        maquina.addState(etapa3);
+//        //Acciones
+//        Action a = new Action(do0, SignalValue.OFF);
+//        System.out.println(a);
+//        etapa0.addAction(a);
+//        a = new Action(do0, SignalValue.ON);
+//        System.out.println(a);
+//        etapa1.addAction(a);
+//        // Transiciones
+//        Transition t = new Transition(etapa1);
+//        Condition c = new Condition(di0, SignalValue.ON);
+//        System.out.println(c);
+//        t.addCondition(c);
+//        etapa0.addTransition(t);
+//
+//        t = new Transition(etapa0);
+//        c = new Condition(di0, SignalValue.OFF);
+//        System.out.println(c);
+//        t.addCondition(c);
+//        etapa1.addTransition(t);
+//        etapa1.addTransition(new Transition(etapa2));
+//        System.out.println("Transitions:");
+//        System.out.print(etapa0.transitionsToString());
+//        System.out.print(etapa1.transitionsToString());
 
-        t = new Transition(etapa0);
-        c = new Condition(di0, SignalValue.OFF);
-        System.out.println(c);
-        t.addCondition(c);
-        etapa1.addTransition(t);
-        etapa1.addTransition(new Transition(etapa3));
-        System.out.println("Transitions:");
-        System.out.print(etapa0.transitionsToString());
-        System.out.print(etapa1.transitionsToString());
-        
         setMachine(maquina);
     }
 
@@ -179,49 +191,83 @@ public class SeqMachineCanvas extends JPanel {
     // TODO Definir la gestion con el raton
     private void onMouseDragged(MouseEvent e) {
         if (this.contains(e.getX(), e.getY())) {
-            if (movedNode != null) {
+            if (nodeToMove != null) {
                 int x = (e.getX() / grid.width) * grid.width;
                 int y = (e.getY() / grid.height) * grid.height;
-                movedNode.moveTo(x, y);
+                nodeToMove.moveTo(x, y);
                 repaint();
             }
         }
     }
 
     private void onMouseMoved(MouseEvent e) {
-        movedNode = null;
-        if (machine != null)
-            for (State s : machine.getStates()) {
-                if (s.getNode().contains(e.getX(), e.getY())) {
-                    setStatusText("Seleccionado " + s.getId() + " Clicks: " + e.getClickCount());
-                    movedNode = s.getNode();
-                    break;
-                }
-            }
     }
 
     private void onMousePressed(MouseEvent e) {
+        boolean deseleccion = true;
         // Muestra el popup menu
         if (e.getButton() == MouseEvent.BUTTON3) {
             popup.show(this, e.getX(), e.getY());
             return;
         }
-
-        int shiftMask = MouseEvent.SHIFT_DOWN_MASK | MouseEvent.BUTTON1_DOWN_MASK;
-        int modifiers = e.getModifiersEx();
-        if ((modifiers & shiftMask) == shiftMask) {
-            setStatusText("SHIFT PULSADA");
-        } else {
+        //Determina si se ha pulsado sobre un node
+        nodeToMove = null;
+        StateIcon unSicon = null;
+        if (machine != null) {
+            for (StateIcon si : machine.getImage().getStateIcons()) {
+                if (si.contains(e.getX(), e.getY())) {
+                    setStatusText("Seleccionado " + si.getState().getId() + ". Double click to edit.");
+                    unSicon = si;
+                    break;
+                }
+            }
+        }
+        if (unSicon != null) {
+            nodeToMove = unSicon;
+            //Si es doble click edita el estado asociado al nodo
+            if (e.getClickCount() == 2) {
+                JDIalogEditState dlg = new JDIalogEditState(null, true, unSicon.getState());
+                dlg.setTitle("State " + unSicon.getState().getId());
+                dlg.setVisible(true);
+                return;
+            }
+            // Si es una pulsacion + tecla SHIFT selecciona como primer nodo de un nuevo edge
+            // y por segunda pulsacion crea el nuevo edge
+            int shiftMask = MouseEvent.SHIFT_DOWN_MASK | MouseEvent.BUTTON1_DOWN_MASK;
+            int modifiers = e.getModifiersEx();
+            if ((modifiers & shiftMask) == shiftMask && e.getClickCount() == 1) {
+                if (selectedNode != null) {
+                    //Crea transición
+                    Transition t = new Transition(unSicon.getState());
+                    selectedNode.getState().addTransition(t);
+                    machine.getImage().add(new TransitionIcon(t, selectedNode, unSicon));
+                    selectedNode.setSelected(false);
+                    selectedNode = null;
+                } else {
+                    selectedNode = unSicon;
+                    selectedNode.setSelected(true);
+                    setStatusText("Pulse otro nodo para crear un edge");
+                    deseleccion = false;
+                }
+                repaint();
+            }
+        }
+        if (deseleccion == true && selectedNode != null) {
+            selectedNode.setSelected(false);
+            selectedNode = null;
+            repaint();
         }
     }
 
     @Override
-    public void addPropertyChangeListener(PropertyChangeListener l) {
+    public void addPropertyChangeListener(PropertyChangeListener l
+    ) {
         pcs.addPropertyChangeListener("statusText", l);
     }
 
     @Override
-    public void removePropertyChangeListener(PropertyChangeListener l) {
+    public void removePropertyChangeListener(PropertyChangeListener l
+    ) {
         pcs.removePropertyChangeListener("statusText", l);
     }
 
@@ -241,24 +287,27 @@ public class SeqMachineCanvas extends JPanel {
      * @param machine SeqMachine
      */
     public void setMachine(SeqMachine machine) {
-        movedNode = null;
+        nodeToMove = null;
         this.machine = machine;
         setStatusText(this.machine.getDescription());
-        int i = 0;
-        // Para cada estado de la machine crea su nodo
-        for (State s : this.machine.getStates()) {
-            Node n = new Node(s.getId(), 16 * grid.width, 2 * grid.height + 4 * grid.height * i);
-            s.setNode(n);
-            i++;
-        }
+//        int i = 0;
+//        // Para cada estado de la machine crea su nodo
+//        for (State s : this.machine.getStates()) {
+//            machine.getImage().add(new StateIcon(s, 16 * grid.width, 2 * grid.height + 4 * grid.height * i, false));
+//            i++;
+//        }
         // Para cada transicion de la maquina crea su edge
-        for (State s : this.machine.getStates()) {
-            for (Transition t : s.getTransitions()) {
-                Edge e = new Edge(s.getNode(), t.getFinalState().getNode());
-                t.setEdge(e);
-            }
-        }
+//        for (State s : this.machine.getStates()) {
+//            for (Transition t : s.getTransitions()) {
+//                TransitionIcon e = new TransitionIcon(t, s.getNode(), t.getFinalState().getNode());
+//                t.setEdge(e);
+//            }
+//        }
         repaint();
+    }
+
+    public SeqMachine getMachine() {
+        return machine;
     }
 
     @Override
@@ -269,17 +318,43 @@ public class SeqMachineCanvas extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         if (machine != null) {
             //Dibujo de nodos y edges
-            for (State s : machine.getStates()) {
-                for (Transition t : s.getTransitions()) {
-                    t.getEdge().draw(g2);
-                }
+            for (TransitionIcon ti : machine.getImage().getTransitionIcons()) {
+                ti.draw(g2);
             }
-            for (State s : machine.getStates()) {
-                s.getNode().draw(g2);
+            for (StateIcon si : machine.getImage().getStateIcons()) {
+                si.draw(g2);
             }
-            if (movedNode != null) {
-                movedNode.draw(g2);
+            if (nodeToMove != null) {
+                nodeToMove.draw(g2);
             }
+        }
+    }
+
+    public void createState() {
+        if (machine != null) {
+            Dimension d = this.getSize();
+            State s = new State();
+            JDIalogEditState dlg = new JDIalogEditState(null, true, s);
+            dlg.setTitle("New State");
+            dlg.setVisible(true);
+            if (s.getId() != null) {
+                machine.getImage().add(new StateIcon(s, d.width / 2, d.height / 2, false));
+                machine.addState(s);
+                repaint();
+            }
+
+        }
+    }
+
+    public void createLink() {
+        if (machine != null) {
+            if (selectedNode != null) {
+                machine.getImage().add(new StateIcon(selectedNode.getState(), 0, 0, true));
+                selectedNode.setSelected(false);
+                selectedNode = null;
+                repaint();
+            }
+
         }
     }
 }

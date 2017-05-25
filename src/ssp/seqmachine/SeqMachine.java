@@ -33,9 +33,9 @@ public class SeqMachine {
     private final String description;
     private final ArrayList<State> estados;
     private final ArrayList<Signal> senyales;
-    private State initState;
-    private State actualState;
-    
+    private transient State initState;
+    private transient State actualState;
+    private final SeqMachineImage image;
     /**
      *
      * @param description
@@ -44,6 +44,11 @@ public class SeqMachine {
         this.description = description;
         estados = new ArrayList<>();
         senyales = new ArrayList<>();
+        image = new SeqMachineImage();
+    }
+
+    public SeqMachineImage getImage() {
+        return image;
     }
     
     /**

@@ -21,6 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+import com.cedarsoftware.util.io.JsonWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
 import ssp.seqmachine.*;
 
 /**
@@ -28,7 +33,7 @@ import ssp.seqmachine.*;
  * @author sergio
  */
 public class TestSeqMachine {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         
         SeqMachine maquina = new SeqMachine("Maniobra para encender la luz");
         // Señales
@@ -84,6 +89,11 @@ public class TestSeqMachine {
         maquina.update();
         System.out.println(do0);
         
+        HashMap options = new HashMap();
+        options.put(JsonWriter.PRETTY_PRINT, true);
+        JsonWriter jsonw = new JsonWriter(new FileOutputStream("maquina.json"), options);
+        jsonw.write(maquina);
+        jsonw.close();
     }
     
 }

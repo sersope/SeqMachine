@@ -32,7 +32,6 @@ import java.util.*;
 public class Transition {
     private final State finalState;
     private final ArrayList<Condition> conditions;
-    private Edge edge;
     
     /**
      * Constructor
@@ -41,14 +40,6 @@ public class Transition {
     public Transition(State fs) {
         finalState = fs;
         conditions = new ArrayList<>();
-    }
-
-    public Edge getEdge() {
-        return edge;
-    }
-
-    public void setEdge(Edge edge) {
-        this.edge = edge;
     }
     
     public State getFinalState() {

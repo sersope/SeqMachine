@@ -28,37 +28,50 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import ssp.seqmachine.State;
 
 /**
  *
  * @author Sergio Soriano Peiró <sersope@gmail.com>
  */
-public class Node {
-    private String id;
+public class StateIcon {
+
+    private final State state;
     static private final Dimension CLIP_OFFSET = new Dimension(1, 1);
     static private final Dimension SIZE = new Dimension(32, 32);
     static private final Color BACKG_COLOR = new Color(240, 240, 240);
-
     private final Rectangle bounds;
-    private boolean selected;
-//    private boolean firstDraw = true;
+    private final boolean isLink;
+    private boolean selected = false;
 
-    public static Dimension getSIZE() {
-        return SIZE;
-    }
-
-    Node(String id, int x0, int y0) {
-        this.id = id;
+    public StateIcon(State state, int x0, int y0, boolean isLink) {
+        this.state = state;
         bounds = new Rectangle(new Point(x0, y0), SIZE);
-        selected = false;
+        this.isLink = isLink;
     }
 
     public boolean isSelected() {
         return selected;
     }
 
-    public void setSelected(boolean v) {
-        selected = v;
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public String getID() {
+        return state.getId();
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public static Dimension getSIZE() {
+        return SIZE;
+    }
+
+    public boolean isLink() {
+        return isLink;
     }
 
     public Rectangle getRect() {
@@ -90,9 +103,22 @@ public class Node {
     public void draw(Graphics2D g2) {
         int textGap = 8;
         g2.setColor(BACKG_COLOR);
-        g2.fill(bounds);
-        g2.setColor(Color.BLACK);
-        g2.draw(bounds);
-        g2.drawString(id, bounds.x + textGap, (int) bounds.getCenterY());
+        if (isLink) {
+            g2.fillOval(bounds.x, bounds.y, bounds.width, bounds.height);
+        } else {
+            g2.fill(bounds);
+        }
+
+        if (selected) {
+            g2.setColor(Color.RED);
+        } else {
+            g2.setColor(Color.BLACK);
+        }
+        if (isLink) {
+            g2.drawOval(bounds.x, bounds.y, bounds.width, bounds.height);
+        } else {
+            g2.draw(bounds);
+        }
+        g2.drawString(state.getId(), bounds.x + textGap, (int) bounds.getCenterY());
     }
 }
