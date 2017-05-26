@@ -6,6 +6,7 @@
             <name>SeqMachineClass</name>
             <source-roots>
                 <root id="src.dir"/>
+                <root id="src.Fuentes%20de%20terceros.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir"/>

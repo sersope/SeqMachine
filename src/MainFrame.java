@@ -6,9 +6,9 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import ssp.seqmachine.*;
-
-
 
 /**
  *
@@ -39,8 +39,13 @@ public class MainFrame extends javax.swing.JFrame {
         seqMachineCanvas1 = new ssp.seqmachine.ui.SeqMachineCanvas();
         jToolBar2 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jLabelStatusText = new javax.swing.JLabel();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLoad = new javax.swing.JMenuItem();
@@ -64,7 +69,7 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("SeqMachine");
         setLocation(new java.awt.Point(300, 150));
 
-        seqMachineCanvas1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        seqMachineCanvas1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         seqMachineCanvas1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 seqMachineCanvas1PropertyChange(evt);
@@ -79,7 +84,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         seqMachineCanvas1Layout.setVerticalGroup(
             seqMachineCanvas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+            .addGap(0, 464, Short.MAX_VALUE)
         );
 
         jToolBar2.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("ToolBar.borderColor")));
@@ -98,8 +103,42 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar2.add(jButton1);
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/open.png"))); // NOI18N
+        jButton4.setToolTipText("Load Machine ...");
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton4);
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save.png"))); // NOI18N
+        jButton5.setToolTipText("Save Machine ...");
+        jButton5.setEnabled(false);
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton5);
+
+        jLabelStatusText.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabelStatusText.setText("Sergio");
+        jLabelStatusText.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+        jToolBar1.setPreferredSize(new java.awt.Dimension(100, 38));
+
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/StateNew.png"))); // NOI18N
         jButton2.setToolTipText("New State ...");
+        jButton2.setEnabled(false);
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -108,38 +147,65 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jToolBar2.add(jButton2);
+        jToolBar1.add(jButton2);
 
-        jLabelStatusText.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabelStatusText.setText("Sergio");
-        jLabelStatusText.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LinkNew.png"))); // NOI18N
+        jButton3.setToolTipText("New link to State");
+        jButton3.setEnabled(false);
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton3);
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/StateEdit.png"))); // NOI18N
+        jButton6.setToolTipText("Edit State ...");
+        jButton6.setEnabled(false);
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton6);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(seqMachineCanvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(1, 1, 1))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelStatusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 577, Short.MAX_VALUE))
+                    .addComponent(seqMachineCanvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
                 .addComponent(seqMachineCanvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
                 .addComponent(jLabelStatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jToolBar1, jToolBar2});
 
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -205,7 +271,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuSalirActionPerformed
 
     private void seqMachineCanvas1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_seqMachineCanvas1PropertyChange
-        jLabelStatusText.setText(evt.getNewValue().toString());
+        switch (evt.getPropertyName()) {
+            case "statusText":
+                jLabelStatusText.setText(evt.getNewValue().toString());
+                break;
+            case "iconSelected":
+                jButton6.setEnabled((boolean)evt.getNewValue());
+                jButton3.setEnabled((boolean)evt.getNewValue());
+                break;
+            case "machineSelected":
+                jButton2.setEnabled((boolean)evt.getNewValue());
+                jButton5.setEnabled((boolean)evt.getNewValue());
+                break;
+        }
     }//GEN-LAST:event_seqMachineCanvas1PropertyChange
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -221,27 +299,68 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSaveActionPerformed
-        try {
-            HashMap options = new HashMap();
-            options.put(JsonWriter.PRETTY_PRINT, true);
-            JsonWriter jsonw = new JsonWriter(new FileOutputStream("maquina.json"), options);
-            jsonw.write(seqMachineCanvas1.getMachine());
-            jsonw.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        saveMachine();
     }//GEN-LAST:event_jMenuItemSaveActionPerformed
 
     private void jMenuItemLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoadActionPerformed
-        try {
-            JsonReader jsonr = new JsonReader(new FileInputStream("maquina.json"));
-            seqMachineCanvas1.setMachine((ssp.seqmachine.SeqMachine)jsonr.readObject());
-            jsonr.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        loadMachine();
     }//GEN-LAST:event_jMenuItemLoadActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        seqMachineCanvas1.createLink();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        loadMachine();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        saveMachine();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void loadMachine() {
+        JFileChooser dlg = new JFileChooser(System.getProperty("user.dir"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("SeqMachines", "smaq");
+        dlg.setFileFilter(filter);
+        int returnVal = dlg.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to open this file: "
+                    + dlg.getSelectedFile().getName());
+            try {
+                JsonReader jsonr = new JsonReader(new FileInputStream(dlg.getSelectedFile()));
+                seqMachineCanvas1.setMachine((ssp.seqmachine.SeqMachine) jsonr.readObject());
+                jsonr.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
+    private void saveMachine() {
+        JFileChooser dlg = new JFileChooser(System.getProperty("user.dir"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("SeqMachines", "smaq");
+        dlg.setFileFilter(filter);
+        int returnVal = dlg.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println("You chose to save this file: "
+                    + dlg.getSelectedFile().getName());
+            try {
+                HashMap options = new HashMap();
+                options.put(JsonWriter.PRETTY_PRINT, true);
+                JsonWriter jsonw = new JsonWriter(new FileOutputStream(dlg.getSelectedFile()), options);
+                jsonw.write(seqMachineCanvas1.getMachine());
+                jsonw.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -279,6 +398,10 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabelStatusText;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -291,6 +414,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private ssp.seqmachine.ui.SeqMachineCanvas seqMachineCanvas1;
     // End of variables declaration//GEN-END:variables

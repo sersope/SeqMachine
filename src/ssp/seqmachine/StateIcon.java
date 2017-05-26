@@ -39,7 +39,7 @@ public class StateIcon {
     private final State state;
     static private final Dimension CLIP_OFFSET = new Dimension(1, 1);
     static private final Dimension SIZE = new Dimension(32, 32);
-    static private final Color BACKG_COLOR = new Color(240, 240, 240);
+    static private final Color BACKG_COLOR = new Color(255, 144, 134);
     private final Rectangle bounds;
     private final boolean isLink;
     private boolean selected = false;
