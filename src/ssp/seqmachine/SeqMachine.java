@@ -30,26 +30,28 @@ import java.util.*;
  * @author sergio
  */
 public class SeqMachine {
+    
+    public Node tree;
     private final String description;
-    private final ArrayList<State> estados;
     private final ArrayList<Signal> senyales;
     private transient State initState;
     private transient State actualState;
-    private final SeqMachineImage image;
+    
     /**
      *
      * @param description
      */
     public SeqMachine(String description) {
         this.description = description;
-        estados = new ArrayList<>();
+//        estados = new ArrayList<>();
         senyales = new ArrayList<>();
-        image = new SeqMachineImage();
+        // Crea el nodo inicial, que es auténtico
+        tree = new Node(new State("S0", "Initial State"), 0, 0, false);
     }
-
-    public SeqMachineImage getImage() {
-        return image;
-    }
+//
+//    public SeqMachineImage getImage() {
+//        return image;
+//    }
     
     /**
      *
@@ -67,19 +69,6 @@ public class SeqMachine {
     public boolean addSignal(Signal s) {
         return senyales.add(s);
     }
-    
-    /**
-     *
-     * @param e
-     * @return
-     */
-    public boolean addState(State e) {
-        return estados.add(e);
-    }
-    
-    public ArrayList<State> getStates() {
-        return estados;
-    }
     /**
      *
      * @param e
@@ -91,8 +80,8 @@ public class SeqMachine {
     }
     
     public void update() {
-        // Determina el siguiente estado
-        actualState = actualState.getNext();
+        // TODO Determina el siguiente NODO NODO NODO NODO 
+//        actualState = actualState.getNext();
         actualState.doActions();
     }
 }

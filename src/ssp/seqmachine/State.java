@@ -27,7 +27,6 @@ import java.util.*;
 
 /**
  * Implementa una etapa de la lista
- * TODO Desarrollar y explicar un poco 
  * @author Sergio Soriano Peiró
  */
 public class State {
@@ -36,12 +35,12 @@ public class State {
     private long initTime;
     private long duration;
     private final ArrayList<Action> actions;
-    private final ArrayList<Transition> transitions;
+//    private final ArrayList<Transition> transitions;
     
     
     public State() {
         actions = new ArrayList<>();
-        transitions = new ArrayList<>();
+//        transitions = new ArrayList<>();
         duration = 0L;
     }
     /**
@@ -53,7 +52,7 @@ public class State {
         id = i;
         description = d;
         actions = new ArrayList<>();
-        transitions = new ArrayList<>();
+//        transitions = new ArrayList<>();
         duration = 0L;
     }
 
@@ -112,19 +111,19 @@ public class State {
     public boolean addAction(Action a) {
         return actions.add(a);
     }
-    
-    /**
-     * Añade una transición a la etapa.
-     * @param t Objeto Transition añadido.
-     * @return true si la transición se ha añadido correctamente.
-     */
-    public boolean addTransition(Transition t) {
-        return transitions.add(t);
-    }
-    
-    public ArrayList<Transition> getTransitions() {
-        return transitions;
-    }
+//    
+//    /**
+//     * Añade una transición a la etapa.
+//     * @param t Objeto Transition añadido.
+//     * @return true si la transición se ha añadido correctamente.
+//     */
+//    public boolean addTransition(Transition t) {
+//        return transitions.add(t);
+//    }
+//    
+//    public ArrayList<Transition> getTransitions() {
+//        return transitions;
+//    }
     
     public void doActions() {
         for (Action a : actions) {
@@ -132,15 +131,15 @@ public class State {
         }
     }
     
-    // Devuelev el estado final de la primera transicion que se supera
-    public State getNext() {
-        for (Transition t : transitions) {
-            if (t.isSuperable()) {
-                return t.getFinalState();
-            }
-        }
-        return this;
-    }
+//    // Devuelev el estado final de la primera transicion que se supera
+//    public State getNext() {
+//        for (Transition t : transitions) {
+//            if (t.isSuperable()) {
+//                return t.getFinalState();
+//            }
+//        }
+//        return this;
+//    }
     /**
      * Override toString method
      * @return "State: " + id + " (" + description + ")"
@@ -149,12 +148,12 @@ public class State {
     public String toString() {
         return "State: " + id + " (" + description + ")";
     }
-    
-    public String transitionsToString() {
-        String s = "";
-        for (Transition t : transitions) {
-            s += this.getId() + " -> " + t.getFinalState().getId() + "\n";
-        }
-        return s;
-    }
+//    
+//    public String transitionsToString() {
+//        String s = "";
+//        for (Transition t : transitions) {
+//            s += this.getId() + " -> " + t.getFinalState().getId() + "\n";
+//        }
+//        return s;
+//    }
 }

@@ -31,8 +31,11 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import javax.swing.JPanel;
 import javax.swing.event.SwingPropertyChangeSupport;
+import javax.swing.tree.DefaultMutableTreeNode;
 import ssp.seqmachine.*;
 
 /**
@@ -42,13 +45,14 @@ import ssp.seqmachine.*;
 public class SeqMachineCanvas extends JPanel {
 
     private final Dimension grid;
-    private StateIcon movingIcon, selectedIcon;
+    private Node selectedNode;
     private String statusText = new String();
     private SeqMachine machine;
     private final SwingPropertyChangeSupport pcs;
 
     public SeqMachineCanvas() {
-        this.grid = StateIcon.getSIZE();
+        grid = Node.getSIZE();
+        selectedNode = null;
         initComponent();
         pcs = new SwingPropertyChangeSupport(this);
     }
@@ -77,15 +81,12 @@ public class SeqMachineCanvas extends JPanel {
         });
     }
 
-    // TODO Definir la gestion con el raton
     private void onMouseDragged(MouseEvent e) {
         if (this.contains(e.getX(), e.getY())) {
-            if (movingIcon != null) {
-                int x = (e.getX() / grid.width) * grid.width;
-                int y = (e.getY() / grid.height) * grid.height;
-                movingIcon.moveTo(x, y);
-                repaint();
-            }
+            int x = e.getX() / grid.width * grid.width;
+            int y = e.getY() / grid.height * grid.height;
+            selectedNode.moveTo(x, y);
+            repaint();
         }
     }
 
@@ -93,58 +94,73 @@ public class SeqMachineCanvas extends JPanel {
     }
 
     private void onMousePressed(MouseEvent e) {
-        boolean deseleccion = true;
-        // Pulsado el botón derecho
-        if (e.getButton() == MouseEvent.BUTTON3) {
-            return;
+//        // Pulsado el botón derecho
+//        if (e.getButton() == MouseEvent.BUTTON3) {
+//            return;
+//        }
+        // Deselecciona nodo previamente seleccionado
+        if (selectedNode != null) {
+            selectedNode.setSelected(false);
+            selectedNode = null;
+            setSelectedNode(false);
+            repaint();
         }
-        //Determina si se ha pulsado sobre un node
-        movingIcon = null;
-        StateIcon unSicon = null;
+        // Determina si se ha pulsado sobre un node
+        boolean nodePulsado = false;
         if (machine != null) {
-            for (StateIcon si : machine.getImage().getStateIcons()) {
-                if (si.contains(e.getX(), e.getY())) {
-                    setStatusText("Seleccionado " + si.getState().getId() + ". Double click to edit.");
-                    unSicon = si;
+            for (Enumeration en = machine.tree.preorderEnumeration(); en.hasMoreElements();) {
+                Node n = (Node) en.nextElement();
+                if (n.contains(e.getX(), e.getY())) {
+                    // Se ha pulsado sobre un node
+                        setSelectedNode(true);
+                        setStatusText("Seleccionado " + n.getState().getId());
+                        n.setSelected(true);
+                        selectedNode = n;
+                    repaint();
                     break;
                 }
             }
         }
-        if (unSicon != null) {
-            movingIcon = unSicon;
-            //Si es doble click edita el estado asociado al nodo
-            if (e.getClickCount() == 2) {
-                JDIalogEditState dlg = new JDIalogEditState(null, true, unSicon.getState());
-                dlg.setTitle("State " + unSicon.getState().getId());
-                dlg.setVisible(true);
-                return;
-            }
-            // Si es una pulsacion + tecla SHIFT selecciona como primer nodo de un nuevo edge
-            // y por segunda pulsacion crea el nuevo edge
-            int shiftMask = MouseEvent.SHIFT_DOWN_MASK | MouseEvent.BUTTON1_DOWN_MASK;
-            int modifiers = e.getModifiersEx();
-            if ((modifiers & shiftMask) == shiftMask && e.getClickCount() == 1) {
-                if (selectedIcon != null) {
-                    //Crea transición
-                    Transition t = new Transition(unSicon.getState());
-                    selectedIcon.getState().addTransition(t);
-                    machine.getImage().add(new TransitionIcon(t, selectedIcon, unSicon));
-                    selectedIcon.setSelected(false);
-                    setSelectedIcon(null);
-                } else {
-                    setSelectedIcon(unSicon);
-                    selectedIcon.setSelected(true);
-                    setStatusText("Pulse otro nodo para crear un edge");
-                    deseleccion = false;
-                }
-                repaint();
-            }
-        }
-        if (deseleccion == true && selectedIcon != null) {
-            selectedIcon.setSelected(false);
-            setSelectedIcon(null);
-            repaint();
-        }
+//        if (nodePulsado != null) {
+//            movingNode = nodePulsado;
+//            //Pulsacion doble click: edita el estado asociado al nodo
+//            if (e.getClickCount() == 2) {
+//                JDIalogEditState dlg = new JDIalogEditState(null, true, nodePulsado.getState());
+//                dlg.setTitle("State " + nodePulsado.getState().getId());
+//                dlg.setVisible(true);
+//                return;
+//            }
+//            // Pulsacion + tecla SHIFT: selecciona como primer nodo de un nuevo edge
+//            //                          y por segunda pulsacion crea el nuevo edge
+//            int shiftMask = MouseEvent.SHIFT_DOWN_MASK | MouseEvent.BUTTON1_DOWN_MASK;
+//            int modifiers = e.getModifiersEx();
+//            if ((modifiers & shiftMask) == shiftMask && e.getClickCount() == 1) {
+//                if (selectedNode != null) {
+//                    //Crea transición
+////                    Transition t = new Transition(unSicon.getState());
+////                    selectedNode.getState().addTransition(t);
+////                    machine.getImage().add(new TransitionIcon(t, selectedNode, unSicon));
+////                    selectedNode.setSelected(false);
+////                    setSelectedNode(null);
+//                } else {
+//                    setSelectedNode(nodePulsado);
+//                    selectedNode.setSelected(true);
+//                    setStatusText("Pulse otro nodo para crear un edge");
+//                    deseleccion = false;
+//                }
+//                repaint();
+//            }
+//        }
+//        // Se ha pulsado fuera de un nodo: deselecciona
+//        if (!nodePulsado) {
+//            setSelectedNode(-selectedNodesCount);
+//            for (DefaultMutableTreeNode tn : selectedTreeNodes) {
+//                Node n = (Node) tn.getUserObject();
+//                n.setSelected(false);
+//            }
+//            selectedTreeNodes.clear();
+//            repaint();
+//        }
     }
 
     @Override
@@ -169,10 +185,8 @@ public class SeqMachineCanvas extends JPanel {
         return statusText;
     }
 
-    public void setSelectedIcon(StateIcon selectedIcon) {
-        this.selectedIcon = selectedIcon;
-        boolean old = (selectedIcon == null) ? true : false;
-        pcs.firePropertyChange("iconSelected", old, !old);
+    public void setSelectedNode(boolean v) {
+        pcs.firePropertyChange("selectedNode", false, v);
     }
 
     /**
@@ -181,7 +195,7 @@ public class SeqMachineCanvas extends JPanel {
      * @param machine SeqMachine
      */
     public void setMachine(SeqMachine machine) {
-        movingIcon = null;
+        selectedNode = null;
         this.machine = machine;
         setStatusText(this.machine.getDescription());
         pcs.firePropertyChange("machineSelected", false, true);
@@ -200,14 +214,12 @@ public class SeqMachineCanvas extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         if (machine != null) {
             //Dibujo de nodos y edges
-            for (TransitionIcon ti : machine.getImage().getTransitionIcons()) {
-                ti.draw(g2);
-            }
-            for (StateIcon si : machine.getImage().getStateIcons()) {
-                si.draw(g2);
-            }
-            if (movingIcon != null) {
-                movingIcon.draw(g2);
+//            for (TransitionIcon ti : machine.getImage().getTransitionIcons()) {
+//                ti.drawEdge(g2);
+//            }
+            for (Enumeration e = machine.tree.preorderEnumeration(); e.hasMoreElements();) {
+                Node n = (Node) e.nextElement();
+                n.draw(g2);
             }
         }
     }
@@ -229,22 +241,22 @@ public class SeqMachineCanvas extends JPanel {
             dlg.setTitle("New State");
             dlg.setVisible(true);
             if (s.getId() != null) {
-                machine.getImage().add(new StateIcon(s, d.width / 2, d.height / 2, false));
-                machine.addState(s);
+                Node n = new Node(s, selectedNode.getRect().x, selectedNode.getRect().y + 3 * grid.height, false);
+                selectedNode.add(n);
                 repaint();
             }
-
         }
     }
 
     public void createLink() {
-        if (machine != null) {
-            if (selectedIcon != null) {
-                machine.getImage().add(new StateIcon(selectedIcon.getState(), 0, 0, true));
-                selectedIcon.setSelected(false);
-                setSelectedIcon(null);
-                repaint();
-            }
-        }
+        //TODO createLink
+//        if (machine != null) {
+//            if (selectedNode != null) {
+//                machine.getImage().add(new Node(selectedNode.getState(), 0, 0, true));
+//                selectedNode.setSelected(false);
+//                setSelectedNode(null);
+//                repaint();
+//            }
+//        }
     }
 }

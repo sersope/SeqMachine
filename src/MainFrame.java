@@ -32,20 +32,17 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jPanel1 = new javax.swing.JPanel();
-        seqMachineCanvas1 = new ssp.seqmachine.ui.SeqMachineCanvas();
         jToolBar2 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jLabelStatusText = new javax.swing.JLabel();
+        jButtonCreateMachine = new javax.swing.JButton();
+        jButtonLoadMachine = new javax.swing.JButton();
+        jButtonSaveMachine = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButtonAddNode = new javax.swing.JButton();
+        jButtonAddNodeLink = new javax.swing.JButton();
+        jButtonEditState = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        seqMachineCanvas1 = new ssp.seqmachine.ui.SeqMachineCanvas();
+        jLabelStatusText = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemLoad = new javax.swing.JMenuItem();
@@ -54,22 +51,95 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("jMenuItem2");
-        jPopupMenu1.add(jMenuItem2);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SeqMachine");
         setLocation(new java.awt.Point(300, 150));
 
-        seqMachineCanvas1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jToolBar2.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("ToolBar.borderColor")));
+        jToolBar2.setFloatable(false);
+        jToolBar2.setRollover(true);
+
+        jButtonCreateMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/MachineNew.png"))); // NOI18N
+        jButtonCreateMachine.setToolTipText("New Machine ...");
+        jButtonCreateMachine.setFocusable(false);
+        jButtonCreateMachine.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCreateMachine.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCreateMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCreateMachineActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButtonCreateMachine);
+
+        jButtonLoadMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/open.png"))); // NOI18N
+        jButtonLoadMachine.setToolTipText("Load Machine ...");
+        jButtonLoadMachine.setFocusable(false);
+        jButtonLoadMachine.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonLoadMachine.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonLoadMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoadMachineActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButtonLoadMachine);
+
+        jButtonSaveMachine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save.png"))); // NOI18N
+        jButtonSaveMachine.setToolTipText("Save Machine ...");
+        jButtonSaveMachine.setEnabled(false);
+        jButtonSaveMachine.setFocusable(false);
+        jButtonSaveMachine.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSaveMachine.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonSaveMachine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveMachineActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButtonSaveMachine);
+
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+
+        jButtonAddNode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/StateNew.png"))); // NOI18N
+        jButtonAddNode.setToolTipText("New State ...");
+        jButtonAddNode.setEnabled(false);
+        jButtonAddNode.setFocusable(false);
+        jButtonAddNode.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonAddNode.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonAddNode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddNodeActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonAddNode);
+
+        jButtonAddNodeLink.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LinkNew.png"))); // NOI18N
+        jButtonAddNodeLink.setToolTipText("New link to State");
+        jButtonAddNodeLink.setEnabled(false);
+        jButtonAddNodeLink.setFocusable(false);
+        jButtonAddNodeLink.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonAddNodeLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddNodeLinkActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonAddNodeLink);
+
+        jButtonEditState.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/StateEdit.png"))); // NOI18N
+        jButtonEditState.setToolTipText("Edit State ...");
+        jButtonEditState.setEnabled(false);
+        jButtonEditState.setFocusable(false);
+        jButtonEditState.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEditState.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonEditState.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditStateActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonEditState);
+
+        jScrollPane1.setWheelScrollingEnabled(false);
+
+        seqMachineCanvas1.setPreferredSize(new java.awt.Dimension(640, 480));
         seqMachineCanvas1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 seqMachineCanvas1PropertyChange(evt);
@@ -80,132 +150,18 @@ public class MainFrame extends javax.swing.JFrame {
         seqMachineCanvas1.setLayout(seqMachineCanvas1Layout);
         seqMachineCanvas1Layout.setHorizontalGroup(
             seqMachineCanvas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         seqMachineCanvas1Layout.setVerticalGroup(
             seqMachineCanvas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 464, Short.MAX_VALUE)
+            .addGap(0, 491, Short.MAX_VALUE)
         );
 
-        jToolBar2.setBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("ToolBar.borderColor")));
-        jToolBar2.setFloatable(false);
-        jToolBar2.setRollover(true);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/MachineNew.png"))); // NOI18N
-        jButton1.setToolTipText("New Machine ...");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(jButton1);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/open.png"))); // NOI18N
-        jButton4.setToolTipText("Load Machine ...");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(jButton4);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/save.png"))); // NOI18N
-        jButton5.setToolTipText("Save Machine ...");
-        jButton5.setEnabled(false);
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jToolBar2.add(jButton5);
+        jScrollPane1.setViewportView(seqMachineCanvas1);
 
         jLabelStatusText.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabelStatusText.setText("Sergio");
         jLabelStatusText.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
-        jToolBar1.setPreferredSize(new java.awt.Dimension(100, 38));
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/StateNew.png"))); // NOI18N
-        jButton2.setToolTipText("New State ...");
-        jButton2.setEnabled(false);
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton2);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LinkNew.png"))); // NOI18N
-        jButton3.setToolTipText("New link to State");
-        jButton3.setEnabled(false);
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton3);
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/StateEdit.png"))); // NOI18N
-        jButton6.setToolTipText("Edit State ...");
-        jButton6.setEnabled(false);
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton6);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelStatusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 577, Short.MAX_VALUE))
-                    .addComponent(seqMachineCanvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(1, 1, 1))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addComponent(seqMachineCanvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(1, 1, 1)
-                .addComponent(jLabelStatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jToolBar1, jToolBar2});
 
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -250,16 +206,27 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelStatusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelStatusText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jToolBar1, jToolBar2});
 
         pack();
         setLocationRelativeTo(null);
@@ -275,28 +242,25 @@ public class MainFrame extends javax.swing.JFrame {
             case "statusText":
                 jLabelStatusText.setText(evt.getNewValue().toString());
                 break;
-            case "iconSelected":
-                jButton6.setEnabled((boolean)evt.getNewValue());
-                jButton3.setEnabled((boolean)evt.getNewValue());
+            case "selectedNode":
+                boolean v = (boolean)evt.getNewValue();
+                jButtonAddNode.setEnabled(v);
+                jButtonEditState.setEnabled(v);
+                jButtonAddNodeLink.setEnabled(v);
                 break;
             case "machineSelected":
-                jButton2.setEnabled((boolean)evt.getNewValue());
-                jButton5.setEnabled((boolean)evt.getNewValue());
+                jButtonSaveMachine.setEnabled((boolean) evt.getNewValue());
                 break;
         }
     }//GEN-LAST:event_seqMachineCanvas1PropertyChange
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonAddNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNodeActionPerformed
         seqMachineCanvas1.createState();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonAddNodeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCreateMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateMachineActionPerformed
         seqMachineCanvas1.createMachine();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jButtonCreateMachineActionPerformed
 
     private void jMenuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSaveActionPerformed
         saveMachine();
@@ -306,21 +270,21 @@ public class MainFrame extends javax.swing.JFrame {
         loadMachine();
     }//GEN-LAST:event_jMenuItemLoadActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonAddNodeLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNodeLinkActionPerformed
         seqMachineCanvas1.createLink();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonAddNodeLinkActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonLoadMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoadMachineActionPerformed
         loadMachine();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButtonLoadMachineActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButtonSaveMachineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveMachineActionPerformed
         saveMachine();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonSaveMachineActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void jButtonEditStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditStateActionPerformed
+        // seqMachineCanvas1.editNode();
+    }//GEN-LAST:event_jButtonEditStateActionPerformed
 
     private void loadMachine() {
         JFileChooser dlg = new JFileChooser(System.getProperty("user.dir"));
@@ -338,9 +302,9 @@ public class MainFrame extends javax.swing.JFrame {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
-    
+
     private void saveMachine() {
         JFileChooser dlg = new JFileChooser(System.getProperty("user.dir"));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("SeqMachines", "smaq");
@@ -359,8 +323,9 @@ public class MainFrame extends javax.swing.JFrame {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
+
     /**
      * @param args the command line arguments
      */
@@ -396,23 +361,20 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButtonAddNode;
+    private javax.swing.JButton jButtonAddNodeLink;
+    private javax.swing.JButton jButtonCreateMachine;
+    private javax.swing.JButton jButtonEditState;
+    private javax.swing.JButton jButtonLoadMachine;
+    private javax.swing.JButton jButtonSaveMachine;
     private javax.swing.JLabel jLabelStatusText;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemLoad;
     private javax.swing.JMenuItem jMenuItemSave;
     private javax.swing.JMenuItem jMenuSalir;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
